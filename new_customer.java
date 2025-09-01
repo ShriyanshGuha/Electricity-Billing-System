@@ -20,7 +20,7 @@ public class new_customer extends JFrame implements ActionListener{
         f1 = new Font("senserif",Font.BOLD,18);
         f2 = new Font("senserif",Font.BOLD,20);
         ImageIcon img = new ImageIcon(ClassLoader.getSystemResource("icons/Customer.png"));
-        Image i = img.getImage().getScaledInstance(486, 270, Image.SCALE_SMOOTH);
+        Image i = img.getImage().getScaledInstance(360, 200, Image.SCALE_SMOOTH);
         ImageIcon img1 = new ImageIcon(i);
 
         p1 = new JPanel();
@@ -133,4 +133,5 @@ public class new_customer extends JFrame implements ActionListener{
     public static void main(String[] args) {
         new new_customer();
     }
+
 }
