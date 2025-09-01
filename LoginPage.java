@@ -102,7 +102,7 @@ public class LoginPage extends JFrame implements ActionListener
        }
        if(e.getSource()== b2)
        {
-           f.setVisible(false);
+           f.dispose();
        }
     }
         
@@ -110,3 +110,4 @@ public class LoginPage extends JFrame implements ActionListener
             
     
 }
+
