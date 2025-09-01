@@ -31,10 +31,10 @@ public class HomePage extends JFrame {
         
         m = new JMenuBar();
         
-        m1 = new JMenu("Master");
-        m2= new JMenu("User");
+       m1 = new JMenu("Customer");
+        m2= new JMenu("Payment");
         m3 = new JMenu("Report");
-        m4 = new JMenu("Logout"); // Changed from "Exit" to "Logout"
+        m4 = new JMenu("Logout"); 
         
         i1 = new JMenuItem("New Customer");
         i2 = new JMenuItem("Customer Details");
@@ -126,6 +126,7 @@ public class HomePage extends JFrame {
     }
 }
     
+
 
 
 
