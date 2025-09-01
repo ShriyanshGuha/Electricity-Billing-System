@@ -1,8 +1,8 @@
 package EBS;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class new_customer extends JFrame implements ActionListener{
     JFrame f;
@@ -133,5 +133,4 @@ public class new_customer extends JFrame implements ActionListener{
     public static void main(String[] args) {
         new new_customer();
     }
-
 }
