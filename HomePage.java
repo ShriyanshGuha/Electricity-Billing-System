@@ -1,4 +1,5 @@
 package EBS;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -16,16 +17,14 @@ public class HomePage extends JFrame {
             f.setResizable(false);
             f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            // -------- Background Image --------
+            // ---------- Background Image ----------
             ImageIcon i = new ImageIcon(ClassLoader.getSystemResource("icons/HomePageBkg.jpg"));
             Image ii = i.getImage().getScaledInstance(1200, 690, Image.SCALE_SMOOTH);
-            ImageIcon img1 = new ImageIcon(ii);
-            l1 = new JLabel(img1);
+            l1 = new JLabel(new ImageIcon(ii));
             l1.setBounds(0, 0, 1200, 690);
 
-            // -------- Sidebar (instead of toolbar) --------
-            sidebar = new JPanel();
-            sidebar.setLayout(new GridLayout(10, 1, 0, 10));
+            // ---------- Sidebar ----------
+            sidebar = new JPanel(new GridLayout(10, 1, 0, 10));
             sidebar.setBackground(new Color(40, 44, 52));
             sidebar.setPreferredSize(new Dimension(180, f.getHeight()));
 
@@ -33,7 +32,7 @@ public class HomePage extends JFrame {
 
             b1 = createSidebarButton("Customer", font);
             b2 = createSidebarButton("Payment", font);
-            b3 = createSidebarButton("Report", font);
+            b3 = createSidebarButton("Bifurcation", font);
             b4 = createSidebarButton("Logout", font);
 
             sidebar.add(b1);
@@ -42,7 +41,7 @@ public class HomePage extends JFrame {
             sidebar.add(Box.createVerticalGlue());
             sidebar.add(b4);
 
-            // -------- Popup Menus --------
+            // ---------- Popup Menus ----------
             JPopupMenu customerMenu = new JPopupMenu();
             styleMenu(customerMenu);
             JMenuItem i1 = createMenuItem("New Customer");
@@ -53,36 +52,57 @@ public class HomePage extends JFrame {
             JPopupMenu paymentMenu = new JPopupMenu();
             styleMenu(paymentMenu);
             JMenuItem i3 = createMenuItem("Pay Bill");
+            JMenuItem i5 = createMenuItem("Generate Bill");
             paymentMenu.add(i3);
+            paymentMenu.add(i5);
 
-            JPopupMenu reportMenu = new JPopupMenu();
-            styleMenu(reportMenu);
-            JMenuItem i4 = createMenuItem("Report");
-            reportMenu.add(i4);
-
-            // Show popup on button click
+            // ---------- Button Actions ----------
             b1.addActionListener(e -> customerMenu.show(b1, b1.getWidth(), 0));
             b2.addActionListener(e -> paymentMenu.show(b2, b2.getWidth(), 0));
-            b3.addActionListener(e -> reportMenu.show(b3, b3.getWidth(), 0));
-            b4.addActionListener(e -> f.setVisible(false));
+            b3.addActionListener(e -> new Bifurcation());
+            b4.addActionListener(e -> {
+                f.dispose(); // Close current window
+                new LoginPage(); // Open Login window
+            });
 
-            // -------- Actions --------
+            // ---------- Menu Item Actions ----------
             i1.addActionListener(e -> new new_customer());
             i2.addActionListener(e -> new new_details());
             i3.addActionListener(e -> new new_pay_bill());
-            i4.addActionListener(e -> new new_report());
 
-            // -------- MenuBar at Top --------
+            // Generate Bill with meter + month
+            i5.addActionListener(e -> {
+                JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
+                JTextField meterField = new JTextField();
+                String[] months = { "January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December" };
+                JComboBox<String> monthChoice = new JComboBox<>(months);
+
+                panel.add(new JLabel("Meter Number:"));
+                panel.add(meterField);
+                panel.add(new JLabel("Month:"));
+                panel.add(monthChoice);
+
+                int result = JOptionPane.showConfirmDialog(f, panel, "Enter Bill Details", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    String meterNo = meterField.getText().trim();
+                    String month = (String) monthChoice.getSelectedItem();
+                    if (!meterNo.isEmpty() && month != null) {
+                        new new_generate_bill(meterNo, month);
+                    } else {
+                        JOptionPane.showMessageDialog(f, "Please enter all details.");
+                    }
+                }
+            });
+
+            // ---------- MenuBar ----------
             JMenuBar menubar = new JMenuBar();
-            JMenu menu1 = new JMenu("File");
-            JMenu menu2 = new JMenu("Edit");
-            JMenu menu3 = new JMenu("Help");
-            menubar.add(menu1);
-            menubar.add(menu2);
-            menubar.add(menu3);
+            menubar.add(new JMenu("File"));
+            menubar.add(new JMenu("Edit"));
+            menubar.add(new JMenu("Help"));
             f.setJMenuBar(menubar);
 
-            // -------- Frame Layout --------
+            // ---------- Layout ----------
             f.setLayout(new BorderLayout());
             f.add(sidebar, BorderLayout.WEST);
             f.add(l1, BorderLayout.CENTER);
@@ -104,14 +124,9 @@ public class HomePage extends JFrame {
         btn.setHorizontalAlignment(SwingConstants.LEFT);
         btn.setMargin(new Insets(12, 20, 12, 10));
 
-        // Hover effect
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn.setBackground(new Color(60, 65, 75));
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn.setBackground(new Color(40, 44, 52));
-            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) { btn.setBackground(new Color(60, 65, 75)); }
+            public void mouseExited(java.awt.event.MouseEvent evt) { btn.setBackground(new Color(40, 44, 52)); }
         });
 
         return btn;
@@ -126,7 +141,7 @@ public class HomePage extends JFrame {
     private JMenuItem createMenuItem(String text) {
         JMenuItem item = new JMenuItem(text);
         item.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        item.setPreferredSize(new Dimension(180, 35)); // bigger height
+        item.setPreferredSize(new Dimension(180, 35));
         return item;
     }
 
