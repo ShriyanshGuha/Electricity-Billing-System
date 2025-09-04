@@ -1,9 +1,8 @@
-# Electricity Management System (EMS)
+# Electricity Billing System (EBS)
 An Electricity Billing System automates the process of managing customer records, meter readings, and bill generation. It calculates charges based on consumption, applies tariffs, and tracks payments. The system improves accuracy, reduces manual errors, and ensures efficient, transparent billing.
 
-An **Electricity Management System (EMS)** developed in **Java Swing** with a **MySQL** backend. This system is designed for electricity providers to manage customers, bills, payments, and load bifurcation efficiently. It provides a **desktop GUI** that is intuitive, responsive, and easy to use.
+An **Electricity Billing System (EBS)** developed in **Java Swing** with a **MySQL** backend. This system is designed for electricity providers to manage customers, bills, payments, and load bifurcation efficiently. It provides a **desktop GUI** that is intuitive, responsive, and easy to use.
 
-The EMS mimics real-world electricity management processes in a **clean, game-like navigation interface** similar to *Flappy Bird* for a smooth workflow.
 
 ---
 
